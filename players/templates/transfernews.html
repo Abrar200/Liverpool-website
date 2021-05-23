@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+   {% block content %}
+   <div style='padding:100px' >
+		{% for transfer in transfernews %}
+			
+
+			  <h5 class="card-header">Abrar Shahriar
+			   <small class="text-muted">{{ transfer.date_posted|date:"F d, Y" }}</small> </h5>
+			  <div class="card-body">
+			  	<img class="card-img-top" class="image-fluid"  src="{{ transfer.player_image }}">
+			    <h5 class="card-title">{{ transfer.name }}</</h5>
+			    <p class="card-text">{{ transfer.player_description }}</p>
+			    <button type="button" class="btn btn-dark">Should Liverpool buy him?</button>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+					  <label class="form-check-label" for="inlineCheckbox1">Absolutely!</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+					  <label class="form-check-label" for="inlineCheckbox2">I don't think so</label>
+					</div>
+					<br><br/>
+					<hr>
+					<h2>Comments...</h2>
+					
+					{% if not transfer.comments.all %}
+						No comments Yet...
+					{% else %}
+						{% for comment in transfer.comments.all %}
+							<strong>
+								{{ comment.user.username }} - {{ comment.date_added }}
+							</strong>
+							<br/>
+							{{ comment.body }}
+							<br/><br/>
+							
+						{% endfor %}
+					{% endif %}
+					<hr>
+					<div>Comment and let us know your thoughts</div>
+					<form method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="transfer_id" value="{{ transfer.id}}">
+						<div class="bg-alert p-2">
+							<div class="d-flex flex-row align-items-start">
+								
+							</div>
+							<div class="mt-2 text-right">
+								{{ form|crispy }}
+								<br>
+								<button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
+								
+								<button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
+							</div>
+						</div>
+					</form>
+
+			</div>
+			<br>
+	   {% endfor %}
+   {% endblock %}

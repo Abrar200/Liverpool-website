@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+  {% block content %}
+   	<div style='padding:25px'>
+			<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img src="https://specials-images.forbesimg.com/imageserve/5f18b6c051f9058658e8e698/960x0.jpg?fit=scale" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="https://static01.nyt.com/images/2019/06/01/sports/01champions19/01champions19-superJumbo.jpg" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="https://a.espncdn.com/photo/2021/0210/r813033_1296x864_3-2.jpg" class="d-block w-100" alt="...">
+		    </div>
+		  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+
+			<h1>Fixtures</h1>
+			{% for fixture in fixtures %}
+				<div class="card bg-light">
+				    <div class="card-header" style="color:red;" >
+				      Featured
+				    </div>
+
+				    <div class="card-body">
+				      <div class="row">
+				        <div class="col col-md-6">
+				            <h5 class="card-title" style="color:black;"><img width="30" height="30" src="{{ fixture.competition_image }}">{{ fixture.home_team }} vs {{ fixture.away_team }}</h5>
+
+				          <p class="card-text" style="color:black;">{{ fixture.description }}</p>
+				          <form style="color:black;">
+				            <h5><label for="watching">Watching?</label>
+				              <input type="checkbox" id="watching" name="watching" value="watching">
+				            </h5>
+				          </form>
+				          <small class="text-muted">{{ fixture.fixture_date|date:"F d, Y" }}</small>
+				        </div>
+
+				        <div class="col col-md-6">
+				          <img class="image-fluid" style="width: 215px" src="{{ fixture.venue_image }}" >
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+
+			{% endfor %}
+			
+ 		</div>
+
+		
+ {% endblock %}
+
